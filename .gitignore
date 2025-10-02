@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# model artifacts
+artifacts/*.pth
+artifacts/*.pt
+artifacts/*.bin
+
+# model artifacts
+artifacts/*.pth
+artifacts/*.pt
+artifacts/*.bin

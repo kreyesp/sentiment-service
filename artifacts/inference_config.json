@@ -1,0 +1,7 @@
+{
+  "lower": true,
+  "pad_token": "<pad>",
+  "unk_token": "<unk>",
+  "batch_first": false,
+  "max_len": 400
+}

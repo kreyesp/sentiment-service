@@ -1,0 +1,15 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.8
+orjson
+torch
+numpy
+scikit-learn
+torchmetrics
+spacy
+transformers
+tokenizers
+sentencepiece
+python-multipart
+httpx
+loguru
