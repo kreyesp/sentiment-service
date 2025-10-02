@@ -61,7 +61,7 @@ class SentimentModel:
         self.backend_fn = self._predict_custom
 
     def _predict_custom(self, text: str) -> Dict[str, Any]:
-        ids_np, lens_np = self.pre.text_to_ids_and_lengths(text)
+        ids_np, lens_np, truncated = self.pre.text_to_ids_and_lengths(text)
         ids = torch.from_numpy(ids_np).to(self.device)       # [seq_len, 1]
         lengths = torch.from_numpy(lens_np).to(self.device)  # [1]
         with torch.inference_mode():
@@ -72,6 +72,7 @@ class SentimentModel:
             "label": label,
             "score": float(prob_pos),
             "probs": {"negative": float(1.0 - prob_pos), "positive": float(prob_pos)},
+            "truncated": bool(truncated)
         }
 
     def predict(self, text: str) -> Dict[str, Any]:

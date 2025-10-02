@@ -19,7 +19,7 @@ class Preprocessor:
         self,
         vocab_json_path: str = "artifacts/torchtext_vocab.json",
         config_json_path: str = "artifacts/inference_config.json",
-        spacy_model: str = "en_core_web_lg",
+        
     ):
         with open(config_json_path, "r", encoding="utf-8") as f:
             cfg = json.load(f)
@@ -52,7 +52,7 @@ class Preprocessor:
         tokens = self._tokenize(text)
         ids = [self.stoi.get(tok, self.unk_idx) for tok in tokens]
         length = min(len(ids), self.cfg.max_len)
-
+        truncated = len(ids) > self.cfg.max_len
         # pad/truncate
         if len(ids) < self.cfg.max_len:
             ids = ids + [self.pad_idx] * (self.cfg.max_len - len(ids))
@@ -65,4 +65,4 @@ class Preprocessor:
             ids = ids.reshape(1, -1)     # [1, seq_len]
         else:
             ids = ids.reshape(-1, 1)     # [seq_len, 1]
-        return ids, lengths
+        return ids, lengths, truncated
