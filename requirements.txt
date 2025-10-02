@@ -1,15 +1,27 @@
+# Force CPU wheels for PyTorch (avoids installing CUDA libs)
+--index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://pypi.org/simple
+
 fastapi>=0.115
 uvicorn[standard]>=0.30
 pydantic>=2.8
 orjson
-torch
+
+# Core runtime
+torch            # resolves to CPU build via index above
 numpy
 scikit-learn
-torchmetrics
+
+# NLP (tokenizer-only via spacy.blank('en'))
 spacy
-transformers
-tokenizers
-sentencepiece
+
+# Request parsing & utilities
 python-multipart
 httpx
 loguru
+
+# --- Optional ---
+# torchmetrics
+# transformers
+# tokenizers
+# sentencepiece
