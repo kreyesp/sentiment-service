@@ -27,15 +27,7 @@ class SentimentModel:
         emb_dim = nlp.vocab.vectors_length   # should be 300
         vocab_size = len(self.pre.stoi)
 
-        emb_matrix = torch.empty((vocab_size, emb_dim), dtype=torch.float32)
-        # torchtext default: <unk>=0, <pad>=1 — you used padding_idx=1
-        for tok, idx in self.pre.stoi.items():
-            vec = nlp.vocab[tok].vector
-            if vec is None or len(vec) == 0:
-                emb_matrix[idx] = torch.zeros(emb_dim, dtype=torch.float32)
-            else:
-                # ensure torch float32
-                emb_matrix[idx] = torch.tensor(vec, dtype=torch.float32)
+        emb_matrix = torch.load("artifacts/emb_matrix.pt", map_location=self.device)  # <-- use precomputed
 
         # 3) Construct your model and load weights
         self.model = Model_1(emb_matrix=emb_matrix, hidden_size=256).to(self.device)

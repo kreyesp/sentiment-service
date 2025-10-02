@@ -38,10 +38,9 @@ class Preprocessor:
         self.unk_idx = self.stoi.get(self.cfg.unk_token, 0)   # torchtext default <unk>=0
 
         # spaCy tokenizer (vectors model)
-        self.nlp = spacy.load(
-            spacy_model,
-            disable=["tagger","parser","ner","lemmatizer","attribute_ruler"]
-        )
+        # Lightweight tokenizer-only
+        self.nlp = spacy.blank("en")       # just a tokenizer, no pipeline or vectors
+
 
     def _tokenize(self, text: str) -> List[str]:
         if self.cfg.lower:
