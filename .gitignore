@@ -12,3 +12,8 @@ artifacts/*.bin
 artifacts/*.pth
 artifacts/*.pt
 artifacts/*.bin
+
+# model artifacts
+artifacts/*.pth
+artifacts/*.pt
+artifacts/*.bin
